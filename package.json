@@ -1,11 +1,11 @@
 {
-  "name": "chrome-extension-boilerplate-react",
-  "version": "5.0.4",
-  "description": "A chrome extension boilerplate built with React 18, Webpack 5, and Webpack Dev Server 4",
+  "name": "coudan-hp",
+  "version": "0.0.1",
+  "description": "A cart helper that calc the price-break discount in jd.com/taobao.com, etc.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lxieyang/chrome-extension-boilerplate-react.git"
+    "url": "git@github.com:bigfei/coudan-hp.git"
   },
   "scripts": {
     "build": "node utils/build.js",
