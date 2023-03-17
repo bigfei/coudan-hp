@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import icon from '../../assets/img/icon-128.png';
+import './Greetings.scss';
 
 interface Props {
   name: string;
