@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Popup.scss';
 // import CartItems, { CartItem } from '../../containers/Cart/CartItems'
 import Cart, { CartItem } from '../../containers/Cart/Cart';
-import { filterItems } from './constant';
+import { filterItems, chooseItems } from './constant';
 
 const Popup = () => {
   const [cookies, setCookies] = useState<chrome.cookies.Cookie[]>([]);
@@ -70,22 +70,31 @@ const Popup = () => {
     }
   }, [cookies]);
 
-    const handleLimitChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-      setLimit(Number(event.target.value));
-    };
-  
+  const handleCalc = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    chooseItems(cartItems, 300*100, 1000*100);
+  };
+
+  const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLimit(Number(event.target.value));
+  };
+
   return (
-    <div className="">
-      <input className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    <>
+      <input
+        className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         type="text"
         id="limit"
         name="limit"
         value={limit}
-        onChange={handleLimitChange}/>
+        onChange={handleLimitChange}
+      />
 
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">计算</button>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={handleCalc}>
+        计算
+      </button>
       {isLoading ? <p>Loading...</p> : <Cart items={cartItems} />}
-    </div>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ export interface CartItem {
   Name: string;
   Price: number;
   PriceShow: string;
+  PriceReal: number;
   Num: number;
   ImgSrc: string;
 }
@@ -24,8 +25,6 @@ function CartItems({ items }: CartItemsProps) {
               src={item.ImgSrc}
               alt={item.Name}
             />
-          </div>
-          <div className="">
             <p className="text-gray-900 font-medium">{item.Name}</p>
             <p className="text-gray-500">{item.PriceShow} {item.Num}个</p>
           </div>
