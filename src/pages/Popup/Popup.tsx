@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './Popup.scss';
 // import CartItems, { CartItem } from '../../containers/Cart/CartItems'
 import Cart, { CartItem } from '../../containers/Cart/Cart';
-import { filterItems, chooseItems } from './constant';
+import { filterItems, groupItems, highestPrice } from './constant';
 
 const Popup = () => {
   const [cookies, setCookies] = useState<chrome.cookies.Cookie[]>([]);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartGroupItems, setCartGroupItems] = useState<CartItem[][]>([]);
+
   const [isLoading, setIsLoading] = useState(true);
   const [limit, setLimit] = useState(300);
 
@@ -70,8 +72,10 @@ const Popup = () => {
     }
   }, [cookies]);
 
-  const handleCalc = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    chooseItems(cartItems, 300*100, 1000*100);
+  const handleCalc = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setCartGroupItems(groupItems(cartItems, limit * 100, highestPrice(cartItems)));
   };
 
   const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,11 +93,13 @@ const Popup = () => {
         onChange={handleLimitChange}
       />
 
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={handleCalc}>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={handleCalc}
+      >
         计算
       </button>
-      {isLoading ? <p>Loading...</p> : <Cart items={cartItems} />}
+      {isLoading ? <p>Loading...</p> : <Cart items={cartItems} groupItems={ cartGroupItems} />}
     </>
   );
 };
